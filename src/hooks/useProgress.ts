@@ -54,4 +54,24 @@ const toggleComplete = useCallback(async (questionId: string) => {
     return true
 }, [userId, progress])
 
+const toggleBookmark = useCallback(async (questionId: string) => {
+    if (!userId) return false
+    const current = bookmarks[questionId] ?? false
+    setBookmarks(prev => ({ ...prev, [questionId]: !current }))
+    await supabase.from('user_progress').upsert({
+      user_id: userId,
+      question_id: questionId,
+      question_type: 'dsa',
+      bookmarked: !current,
+    }, { onConflict: 'user_id,question_id' })
+    return true
+  }, [userId, bookmarks])
+
+const completedCount = Object.values(progress).filter(Boolean).length
+
+return {
+    progress, bookmarks, toggleComplete, toggleBookmark,
+    isLoggedIn : !!userId, loading, completedCount
+}
+
 }
