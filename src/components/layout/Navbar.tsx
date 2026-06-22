@@ -13,7 +13,7 @@ const navLinks = [
     { href: '/progress', label: 'Progress' },
 ]
 
-export function NavBar() {
+export function Navbar() {
     const pathname = usePathname()
 
     return (
