@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`h-full antialiased dark`}
     >
       <body className={`${inter.className} bg-[#0a0a0a] text-white min-h-screen flex flex-col`}>
         <Navbar />
