@@ -15,7 +15,7 @@ export function Footer() {
 
           <div className="flex items-center gap-6 text-sm text-white/50">
             <span>
-              Built by{' Aayushmaan Chakraborty '}
+              Connect with me
             </span>
               
             <a href="https://github.com/Aayushmaan-24"
