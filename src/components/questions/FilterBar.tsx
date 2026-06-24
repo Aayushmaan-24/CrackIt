@@ -139,6 +139,24 @@ export function FilterBar({ filters, onChange, totalCount, filteredCount } : Fil
                 ))}
             </div>
 
+            <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-white/30 uppercase tracking-wider w-16 shrink-0">Company</span>
+                {COMPANIES.map(c => (
+                    <button
+                        key={c}
+                        onClick={() => toggleCompany(c)}
+                        className={clsx(
+                        'px-3 py-1 rounded-full text-xs border capitalize transition-all',
+                        filters.companies.includes(c)
+                            ? 'bg-blue-400/15 border-blue-400/40 text-blue-300'
+                            : 'text-white/40 border-white/10 hover:border-white/20 hover:text-white/60'
+                        )}
+                    >
+                         {c}
+                    </button>
+                )) }
+            </div>
+
         </div>
 
     )
