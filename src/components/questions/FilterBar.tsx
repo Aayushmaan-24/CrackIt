@@ -119,6 +119,26 @@ export function FilterBar({ filters, onChange, totalCount, filteredCount } : Fil
                 )) }
             </div>
 
+            {/* TOPICS */}
+
+            <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-white/30 uppercase tracking-wider w-16 shrink-0">Topic</span>
+                {TOPICS.map(t => (
+                    <button
+                        key={t}
+                        onClick={() => toggleTopic(t)}
+                        className={clsx(
+                            "px-3 py-1 rounded-full text-xs border capitalize transition-all",
+                            filters.topics.includes(t)
+                            ? 'bg-white/15 border-white/40 text-white'
+                            : 'text-white/40 border-white/10 hover:border-white/20 hover:border-white/60'
+                        )}
+                    >
+                        {t.replace('-',' ')}
+                    </button>
+                ))}
+            </div>
+
         </div>
 
     )
