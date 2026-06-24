@@ -99,6 +99,26 @@ export function FilterBar({ filters, onChange, totalCount, filteredCount } : Fil
                )}
             </div>
 
+            {/* Difficulty */}
+
+            <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-white/30 uppercase tracking-wider w-16 shrink-0">Difficulty</span>
+                { DIFFICULTIES.map(d => (
+                    <button
+                        key={d}
+                        onClick={() => toggleDifficulty(d)}
+                        className={clsx(
+                            'px-3 py-1 rounded-full text-xs font-medium border capitalize transition-all',
+                            filters.difficulties.includes(d)
+                            ? DIFFICULTY_COLORS[d]
+                            : 'text-white/40 border-white/10 hover:border-white/20 hover:text-white/60'
+                        )}
+                        >
+                            {d}
+                    </button>
+                )) }
+            </div>
+
         </div>
 
     )
