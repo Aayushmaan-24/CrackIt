@@ -19,9 +19,9 @@ export default async function DashboardPage() {
     .select('question_id, completed, bookmarked, completed_at')
     .eq('user_id', user.id)
 
-  const { data: totalQuestions } = await supabase
+  const { count: totalQuestions } = await supabase
     .from('questions')
-    .select('id', { count: 'exact', head: true })
+    .select('*', { count: 'exact', head: true })
 
   const completed = progressRows?.filter(r => r.completed) ?? []
   const bookmarked = progressRows?.filter(r => r.bookmarked) ?? []
@@ -32,7 +32,7 @@ export default async function DashboardPage() {
     return new Date(r.completed_at).toDateString() === today
   })
 
-  const percent = total > 0 ? Math.round((completed.length / (total as number)) * 100) : 0
+  const percent = total > 0 ? Math.round((completed.length / (total)) * 100) : 0
   const firstName = user.user_metadata?.full_name?.split(' ')[0] ?? 'there'
 
   const stats = [
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
       <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 mb-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-medium">Overall DSA Progress</h2>
-          <span className="text-sm text-white/50">{completed.length} / {total as number}</span>
+          <span className="text-sm text-white/50">{completed.length} / {total}</span>
         </div>
         <div className="h-2 bg-white/10 rounded-full overflow-hidden">
           <div
@@ -105,7 +105,7 @@ export default async function DashboardPage() {
             <h3 className="font-medium">Continue DSA</h3>
             <span className="text-white/30 group-hover:text-white/60 transition-colors">→</span>
           </div>
-          <p className="text-sm text-white/40">Pick up where you left off. {(total as number) - completed.length} questions remaining.</p>
+          <p className="text-sm text-white/40">Pick up where you left off. {(total) - completed.length} questions remaining.</p>
         </Link>
 
         <Link
