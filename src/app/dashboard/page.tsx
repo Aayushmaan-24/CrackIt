@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { Zap, Target, BookMarked, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata = { title: 'Dashboard — CrackIt' }
 
@@ -47,9 +48,11 @@ export default async function DashboardPage() {
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-1">
-          <img
+          <Image
             src={user.user_metadata?.avatar_url}
             alt="avatar"
+            width={36}
+            height={36}
             className="w-9 h-9 rounded-full border border-white/20"
           />
           <h1 className="text-2xl font-bold">Hey, {firstName} 👋</h1>

@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import type { User } from '@supabase/supabase-js'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function SignInButton() {
   const [user, setUser] = useState<User | null>(null)
@@ -30,9 +31,11 @@ export function SignInButton() {
     return (
       <div className="flex items-center gap-3">
         <Link href="/dashboard">
-          <img
+          <Image
             src={user.user_metadata.avatar_url}
             alt="avatar"
+            width={36}
+            height={36}
             className="w-8 h-8 rounded-full border border-white/20 hover:border-white/50 transition-colors cursor-pointer"
           />
         </Link>
