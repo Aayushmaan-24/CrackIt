@@ -3,6 +3,7 @@
 import { clsx } from "clsx"
 import { ExternalLink, Bookmark, BookmarkCheck } from "lucide-react"
 import type { Question, Difficulty } from '@/types'
+import { posthog } from "@/lib/posthog"
 
 const DIFFICULTY_BADGE: Record<Difficulty, string> = {
   easy: 'text-green-400 bg-green-400/10',
@@ -36,6 +37,13 @@ export function QuestionCard ({
             return
         }
         onToggleComplete()
+        posthog.capture('question_completed', {
+            question_id : question.id,
+            title : question.title,
+            difficulty : question.difficulty,
+            topics : question.topics,
+            companies: question.companies
+        })
     }
 
     const handleBookmark = () => {
@@ -44,6 +52,10 @@ export function QuestionCard ({
             return
         }
         onToggleBookmark()
+        posthog.capture('question_bookmarked', {
+            question_id : question.id,
+            difficulty : question.difficulty
+        })
     }
 
     return (
