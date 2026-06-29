@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button'
 import type { User } from '@supabase/supabase-js'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Loader2 } from 'lucide-react'
 
 export function SignInButton() {
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(false)
   const supabase = createClient()
 
   useEffect(() => {
@@ -20,12 +22,20 @@ export function SignInButton() {
     return () => listener.subscription.unsubscribe()
   }, [])
 
-  const signIn = () => supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: `${location.origin}/auth/callback` }
-  })
+  const signIn = async () => {
+    setLoading(true)
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${location.origin}/auth/callback` }
+    })
+  }
 
-  const signOut = () => supabase.auth.signOut()
+  const signOut = async () => {
+
+    setLoading(true)
+    await supabase.auth.signOut()
+    setLoading(false)
+  }
 
   if (user) {
     return (
@@ -41,9 +51,10 @@ export function SignInButton() {
         </Link>
         <button
           onClick={signOut}
-          className="text-xs text-white/40 hover:text-white/70 transition-colors"
+          disabled={loading}
+          className="text-xs text-white/40 hover:text-white/70 transition-colors disabled:opacity-50"
         >
-          Sign out
+          {loading ? 'Signing out...' : 'Sign out'}
         </button>
       </div>
     )
@@ -52,10 +63,17 @@ export function SignInButton() {
   return (
     <Button
       onClick={signIn}
+      disabled={loading}
       size="sm"
-      className="bg-white text-black hover:bg-white/90 font-medium text-sm"
+      className="bg-white text-black hover:bg-white/90 font-medium text-sm min-w-[140px]"
     >
-      Sign in with Google
+      {loading ? (
+        <>
+          <Loader2 className='w-3.5 h-3.5 mr-2 animate-spin' />
+        </>
+      ) : (
+      'Sign in with Google'
+      )}
     </Button>
   )
 }
