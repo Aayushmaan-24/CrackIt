@@ -13,13 +13,6 @@ const stats = [
   { value: '100%', label: 'Free Forever' },
 ]
 
-const router = useRouter()
-const [navigating, setNavigating] = useState(false)
-
-const handleStart = () => {
-  setNavigating(true)
-  router.push('/dsa')
-}
 
 const features = [
   {
@@ -45,6 +38,13 @@ const features = [
 ]
 
 export default function LandingPage() {
+  const router = useRouter()
+  const [navigating, setNavigating] = useState(false)
+
+  const handleStart = () => {
+  setNavigating(true)
+  router.push('/dsa')
+}
   return (
     <div className="flex flex-col">
 
