@@ -6,13 +6,14 @@ import { QuestionCard } from './QuestionCard'
 import { useProgress } from '@/hooks/useProgress'
 import type { Question } from '@/types'
 import { createClient } from '@/lib/supabase/client'
-import { fileURLToPath } from 'url'
+import { init } from 'next/dist/compiled/webpack/webpack'
 
 interface QuestionListProps {
     questions : Question[]
+    initialFilter?: string
 }
 
-export function QuestionList({ questions }: QuestionListProps) {
+export function QuestionList({ questions, initialFilter }: QuestionListProps) {
 
     const { progress, bookmarks, toggleComplete, toggleBookmark, isLoggedIn } = useProgress()
     const [showAuthPrompt, setShowAuthPrompt] = useState(false)
@@ -20,15 +21,36 @@ export function QuestionList({ questions }: QuestionListProps) {
         search: '', topics:[], companies:[], difficulties:[]
     })
 
+    const [bookmarkMode, setBookmarkMode] = useState(initialFilter === 'bookmarked')
+
     const filtered = useMemo(() => {
-        return questions.filter(q => {
-            if(filters.search && !q.title.toLowerCase().includes(filters.search.toLowerCase())) return false
-            if(filters.difficulties.length && !filters.difficulties.includes(q.difficulty)) return false
-            if(filters.companies.length && !filters.companies.some(c => q.companies.includes(c))) return false
-            if(filters.topics.length && filters.topics.some(t => q.topics.includes(t))) return false
-            return true
-        })
-    }, [questions, filters])
+        let list=questions
+
+        if (bookmarkMode) {
+            list = list.filter(q => bookmarks[q.id])
+        }
+
+        if (filters.search && !filters.search.trim() === false) {
+            list = list.filter(q => 
+                q.title.toLowerCase().includes(filters.search.toLowerCase())
+            )
+        }
+
+        if (filters.difficulties.length) {
+            list = list.filter(q => filters.difficulties.includes(q.difficulty))
+        }
+
+        if (filters.topics.length) {
+            list = list.filter(q => filters.topics.some(t => q.topics.includes(t)))
+        }
+
+        if (filters.companies.length) {
+            list = list.filter(q => filters.companies.some(c => q.companies.includes(c)))
+        }
+
+        return list
+
+    }, [questions, filters, bookmarkMode, bookmarks])
 
 
     const handleSignIn = () => {
@@ -60,17 +82,32 @@ export function QuestionList({ questions }: QuestionListProps) {
                 </div>
             )}
 
+            {/* Bookmark mode toggle */}
+            {bookmarkMode && (
+                <div className='flex items-center justify-between bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 -y-3'>
+                    <p className='text-sm text-blue-300'>
+                        Showing bookmarked questions
+                        {filtered.length === 0 && isLoggedIn && ' — you have no bookmarks yet'}
+                    </p>
+                    <button
+                        onClick={() => setBookmarkMode(false)}
+                        className='text-xs text-blue-400 hover:text-blue-300 transition-colors'>
+                        Show all →
+                    </button>
+                </div>
+            )}
+
             {/* Filter Bar */}
             <FilterBar
                 filters={filters}
                 onChange={setFilters}
-                totalCount={questions.length}
+                totalCount={bookmarkMode ? filtered.length : questions.length}
                 filteredCount={filtered.length}
             />
 
             {/* Progress Report */}
 
-            {isLoggedIn && (
+            {isLoggedIn && !bookmarkMode && (
                 <div className='flex items-center gap-3 px-1'>
                     <div className='flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden'>
                         <div className='h-full bg-green-500 rounded-full transition-all duration-500'
@@ -87,7 +124,11 @@ export function QuestionList({ questions }: QuestionListProps) {
             <div className='flex flex-col gap-1.5'>
                 {filtered.length === 0 ? (
                     <div className='text-center py-16 text-white/30 text-sm'>
-                        No questions match your filters
+                        {bookmarkMode && !isLoggedIn
+                        ? 'Sign in to see your bookmarked questions.'
+                        : bookmarkMode
+                        ?"You haven't bookmarked any questions yet. Click the bookmark icon on any question."
+                        : 'No questions match your filters.' }
                     </div>
                 ) : (
                     filtered.map(q => (
