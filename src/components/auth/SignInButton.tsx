@@ -6,11 +6,14 @@ import type { User } from '@supabase/supabase-js'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function SignInButton() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(false)
+  const [navigating, setNavigating] = useState(false)
   const supabase = createClient()
+  const router = useRouter()
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
@@ -42,18 +45,33 @@ export function SignInButton() {
     setLoading(false)
   }
 
+  const handleDashboard = () => {
+    setNavigating(true)
+    router.push('/dashboard')
+  }
+
   if (user) {
     return (
       <div className="flex items-center gap-3">
-        <Link href="/dashboard">
-          <Image
-            src={user.user_metadata.avatar_url}
-            alt="avatar"
-            width={36}
-            height={36}
-            className="w-8 h-8 rounded-full border border-white/20 hover:border-white/50 transition-colors cursor-pointer"
-          />
-        </Link>
+        <button
+          onClick={handleDashboard}
+          disabled={navigating}
+          className='relative w-8 h-8 rounded-full border border-white/20 hover:border-white/50 transition-colors overflow-hidden'>
+            {navigating ? (
+              <div className='w-full h-full bg-black/60 flex items-center justify-center'>
+                <Loader2 className='w-4 h-4 text-white animate-spin' />
+              </div>
+            ) : (
+            <Image
+              src={user.user_metadata.avatar_url}
+              alt="avatar"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-full border border-white/20 hover:border-white/50 transition-colors cursor-pointer"
+            />
+            )}
+        </button>
+          
         <button
           onClick={signOut}
           disabled={loading}
@@ -75,6 +93,7 @@ export function SignInButton() {
       {loading ? (
         <>
           <Loader2 className='w-3.5 h-3.5 mr-2 animate-spin' />
+          Redirecting...
         </>
       ) : (
       'Sign in with Google'
