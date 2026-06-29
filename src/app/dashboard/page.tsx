@@ -109,7 +109,7 @@ export default async function DashboardPage() {
         </Link>
 
         <Link
-          href="/dsa"
+          href="/dsa?filter=bookmarked"
           className="bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.05] rounded-xl p-5 transition-all group"
         >
           <div className="flex items-center justify-between mb-2">
