@@ -17,14 +17,6 @@ export function Footer() {
             <span>
               Connect with me
             </span>
-              
-            <a href="https://github.com/Aayushmaan-24"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-white transition-colors underline underline-offset-4"
-              >
-                GitHub
-            </a>
             
             <a href="https://www.linkedin.com/in/aayushmaanchakraborty"
               target="_blank"
