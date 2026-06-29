@@ -1,6 +1,10 @@
+'use client'
+
 import Link from 'next/link'
-import { Zap, CheckCircle2, Brain, BarChart3, BookOpen, ArrowRight } from 'lucide-react'
+import { Zap, CheckCircle2, Brain, BarChart3, BookOpen, ArrowRight, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const stats = [
   { value: '200+', label: 'DSA Questions' },
@@ -8,6 +12,14 @@ const stats = [
   { value: '3', label: 'Core CS Subjects' },
   { value: '100%', label: 'Free Forever' },
 ]
+
+const router = useRouter()
+const [navigating, setNavigating] = useState(false)
+
+const handleStart = () => {
+  setNavigating(true)
+  router.push('/dsa')
+}
 
 const features = [
   {
@@ -60,9 +72,21 @@ export default function LandingPage() {
 
           <div className="flex items-center gap-3 mt-2">
             <Link href="/dsa">
-              <Button className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 h-11 text-sm">
-                Start Preparing
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button 
+                onClick={handleStart}
+                disabled={navigating}
+                className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 h-11 text-sm">
+                {navigating ? (
+                  <>
+                    <Loader2 className='w-4 h-4 mr-2 animate-spin' />
+                    Loading ...
+                  </>
+                ) : (
+                  <>
+                    Start Preparing
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
               </Button>
             </Link>
             <Link href="/progress">
