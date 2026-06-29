@@ -48,6 +48,7 @@ export function SignInButton() {
   const handleDashboard = () => {
     setNavigating(true)
     router.push('/dashboard')
+    setTimeout(() => setNavigating(false), 1000)
   }
 
   if (user) {
