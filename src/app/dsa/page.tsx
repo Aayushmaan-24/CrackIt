@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { QuestionList } from '@/components/questions/QuestionList'
+import { QuestionList } from '@/components/questions/dsa/QuestionList'
 import type { Question } from '@/types'
 
 export const metadata = { title: 'DSA Questions — CrackIt' }
