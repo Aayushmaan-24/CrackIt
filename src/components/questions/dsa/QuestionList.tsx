@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { FilterBar, type FilterState } from './FilterBar'
-import { QuestionCard } from './QuestionCard'
+import { FilterBar, type FilterState } from '../FilterBar'
+import { QuestionCard } from '../QuestionCard'
 import { useProgress } from '@/hooks/useProgress'
 import type { Question } from '@/types'
 import { createClient } from '@/lib/supabase/client'
