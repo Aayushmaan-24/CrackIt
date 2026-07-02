@@ -4,7 +4,7 @@ import { useState, useMemo } from "react"
 import { ExternalLink, Bookmark, BookmarkCheck } from "lucide-react"
 import { clsx } from "clsx"
 import { useProgress } from "@/hooks/useProgress"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/lib/supabase/client"
 import { redirect } from "next/dist/server/api-utils"
 
 const ALL_COMPANIES = ['google','amazon','microsoft','meta','flipkart','swiggy','zomato','atlassian','salesforce','adobe']
