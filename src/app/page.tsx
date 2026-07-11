@@ -89,11 +89,6 @@ export default function LandingPage() {
                 )}
               </Button>
             </Link>
-            <Link href="/progress">
-              <Button variant="outline" className="border-white/20 bg-transparent hover:bg-white/5 text-white h-11 text-sm px-6">
-                View Progress
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

@@ -10,7 +10,6 @@ const navLinks = [
     { href: '/dsa', label: 'DSA' },
     { href: '/system-design', label: 'System Design' },
     { href: '/core-cs', label: 'Core CS' },
-    { href: '/progress', label: 'Progress' },
 ]
 
 export function Navbar() {
