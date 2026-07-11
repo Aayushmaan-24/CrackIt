@@ -37,17 +37,22 @@ export default async function ProgressPage() {
     if (!user) redirect('/')
     // Fetch all questions + user progress in parallel
 
-    const [
-        {data: allQuestions},
-        {data: allSD},
-        {data: allCS},
-        {data: userProgress},
-    ] = await Promise.all([
-        supabase.from('questions').select('id, topics, companies, difficulty'),
-        supabase.from('system_design_questions').select('id, companies'),
-        supabase.from('core_cs_questions').select('id, subject'),
-        supabase.from('user_progress').select('question_id, completed, completed_at').eq('user_id', user.id),
-    ])
+    const { data: allQuestions } = await supabase
+    .from('questions')
+    .select('id, topics, companies, difficulty')
+
+    const { data: allSD } = await supabase
+    .from('system_design_questions')
+    .select('id, companies')
+
+    const { data: allCS } = await supabase
+    .from('core_cs_questions')
+    .select('id, subject')
+
+    const { data: userProgress } = await supabase
+    .from('user_progress')
+    .select('question_id, completed, completed_at')
+    .eq('user_id', user.id)
 
     const completedSet = new Set(
         userProgress?.filter(r => r.completed).map(r => r.question_id) ?? []
