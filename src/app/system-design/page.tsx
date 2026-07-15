@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { SystemDesignList } from '@/components/questions/systemdesign/Tabs';
+import { SystemDesignTabs } from '@/components/questions/systemdesign/Tabs';
 
 export const metadata = {
     title: 'System Design — CrackIt'
