@@ -11,6 +11,7 @@ const navLinks = [
     { href: '/system-design', label: 'System Design' },
     { href: '/core-cs', label: 'Core CS' },
     { href: '/sql', label: 'SQL' },
+    { href: '/se', label: 'SE'},
 ]
 
 export function Navbar() {
