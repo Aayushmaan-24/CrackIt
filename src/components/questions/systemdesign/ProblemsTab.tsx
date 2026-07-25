@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 import { ExternalLink, Bookmark, BookmarkCheck } from 'lucide-react'
 import { useProgress } from '@/hooks/useProgress'
 import { createClient } from '@/lib/supabase/client'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 type SubTab = 'hld' | 'lld' | 'machine_coding'
 
@@ -34,6 +35,8 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const { progress, bookmarks, toggleComplete, toggleBookmark, isLoggedIn } = useProgress()
 
+  const { trackQuestionCompleted, trackBookmarked, trackAuthPromptShown, trackLinkClicked } = useAnalytics()
+
   const hldOnly = hldProblems.filter(p => p.problem_type === 'hld')
   const machineOnly = hldProblems.filter(p => p.problem_type === 'machine_coding')
 
@@ -42,9 +45,30 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
     activeTab === 'lld' ? lldProblems :
     machineOnly
 
-  const handleAction = async (fn: () => Promise<boolean>) => {
-    if (!isLoggedIn) { setShowAuthPrompt(true); return }
-    await fn()
+  const handleComplete = async (problem: Problem) => {
+    if (!isLoggedIn) {
+      setShowAuthPrompt(true)
+      trackAuthPromptShown('system_design')
+      return
+    }
+    await toggleComplete(problem.id)
+    if (!progress[problem.id]) {
+      trackQuestionCompleted({
+        id: problem.id,
+        title: problem.title,
+        section: 'system_design',
+      })
+    }
+  }
+
+  const handleBookmark = async (problem: Problem) => {
+    if (!isLoggedIn) {
+      setShowAuthPrompt(true)
+      trackAuthPromptShown('system_design')
+      return
+    }
+    await toggleBookmark(problem.id)
+    trackBookmarked(problem.id, 'system_design')
   }
 
   const handleSignIn = () => {
@@ -57,7 +81,6 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
   return (
     <div className="flex flex-col gap-4">
 
-      {/* Auth nudge */}
       {showAuthPrompt && (
         <div className="flex items-center justify-between bg-yellow-400/10 border border-yellow-400/20 rounded-lg px-4 py-3">
           <p className="text-sm text-yellow-300">Sign in to track your progress</p>
@@ -95,7 +118,7 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
         ))}
       </div>
 
-      {/* Progress bar */}
+      {/* Progress bar — scoped to current tab's problems */}
       {isLoggedIn && problemsToShow.length > 0 && (
         <div className="flex items-center gap-3 px-1">
           <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -128,7 +151,7 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
 
               {/* Checkbox */}
               <button
-                onClick={() => handleAction(() => toggleComplete(problem.id))}
+                onClick={() => handleComplete(problem)}
                 className={clsx(
                   'mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all',
                   progress[problem.id]
@@ -144,13 +167,13 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
               </button>
 
               <div className="flex-1 min-w-0">
-                {/* Title */}
                 <div className="flex items-center gap-2 mb-2">
                   {problem.url ? (
                     
                       <a href={problem.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackLinkClicked(problem.title, problem.url!, 'system_design_problems')}
                       className={clsx(
                         'font-medium text-sm flex items-center gap-1.5 group/link',
                         progress[problem.id]
@@ -171,14 +194,12 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
                   )}
                 </div>
 
-                {/* Description */}
                 {problem.description && (
                   <p className="text-xs text-white/40 leading-relaxed mb-2">
                     {problem.description}
                   </p>
                 )}
 
-                {/* Tags + companies */}
                 <div className="flex items-center gap-2 flex-wrap">
                   {problem.tags.map(tag => (
                     <span key={tag} className="text-xs text-white/30 bg-white/5 px-2 py-0.5 rounded capitalize">
@@ -201,7 +222,7 @@ export function ProblemsTab({ hldProblems, lldProblems }: Props) {
 
               {/* Bookmark */}
               <button
-                onClick={() => handleAction(() => toggleBookmark(problem.id))}
+                onClick={() => handleBookmark(problem)}
                 className={clsx(
                   'shrink-0 transition-colors mt-0.5',
                   bookmarks[problem.id]
