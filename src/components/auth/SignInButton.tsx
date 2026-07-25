@@ -6,11 +6,13 @@ import type { User } from '@supabase/supabase-js'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 export function SignInButton() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(false)
   const supabase = createClient()
+  const { trackSignIn, trackSignOut } = useAnalytics()
 
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export function SignInButton() {
 
   const signIn = async () => {
     setLoading(true)
+    trackSignIn()
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { 
@@ -39,6 +42,7 @@ export function SignInButton() {
   const signOut = async () => {
 
     setLoading(true)
+    trackSignOut()
     await supabase.auth.signOut()
     setLoading(false)
   }
