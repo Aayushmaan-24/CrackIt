@@ -6,10 +6,12 @@ export type Topic =
   | 'trees' | 'heaps' | 'graphs' | 'backtracking'
   | 'greedy' | 'dp' | 'math'
 
-export type Company =
+  export type Company =
   | 'google' | 'amazon' | 'microsoft' | 'meta'
   | 'flipkart' | 'swiggy' | 'zomato'
   | 'atlassian' | 'salesforce' | 'adobe'
+  | 'goldman_sachs' | 'jpmorgan' | 'morgan_stanley'
+  | 'bny_mellon' | 'deutsche_bank' | 'wells_fargo'
 
 export interface Question {
   id: string
