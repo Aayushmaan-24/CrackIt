@@ -10,9 +10,11 @@ const TOPICS : Topic[] = [
   'trees', 'heaps', 'graphs', 'backtracking', 'greedy', 'dp', 'math'
 ]
 
-const COMPANIES : Company[] = [
+const COMPANIES: Company[] = [
   'google', 'amazon', 'microsoft', 'meta',
-  'flipkart', 'swiggy', 'zomato', 'atlassian', 'salesforce', 'adobe'
+  'flipkart', 'swiggy', 'zomato', 'atlassian', 'salesforce', 'adobe',
+  'goldman_sachs', 'jpmorgan', 'morgan_stanley', 'bny_mellon',
+  'deutsche_bank', 'wells_fargo'
 ]
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
@@ -23,11 +25,14 @@ const DIFFICULTY_COLORS: Record<Difficulty, string> = {
   hard: 'text-red-400 border-red-400/30 bg-red-400/10 hover:bg-red-400/20',
 }
 
-const COMPANY_LOGOS: Record<Company, string> = {
-  google: 'G', amazon: 'A', microsoft: 'M', meta: 'M',
-  flipkart: 'F', swiggy: 'S', zomato: 'Z',
-  atlassian: 'At', salesforce: 'SF', adobe: 'Ad'
-}
+const COMPANY_LABELS: Record<string, string> = {
+    google: 'Google', amazon: 'Amazon', microsoft: 'Microsoft',
+    meta: 'Meta', flipkart: 'Flipkart', swiggy: 'Swiggy',
+    zomato: 'Zomato', atlassian: 'Atlassian', salesforce: 'Salesforce',
+    adobe: 'Adobe', goldman_sachs: 'Goldman Sachs', jpmorgan: 'JP Morgan',
+    morgan_stanley: 'Morgan Stanley', bny_mellon: 'BNY Mellon',
+    deutsche_bank: 'Deutsche Bank', wells_fargo: 'Wells Fargo',
+  }
 
 export interface FilterState {
     search : string
