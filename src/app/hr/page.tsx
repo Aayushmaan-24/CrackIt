@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase-server';
+import { createClient } from '@/lib/supabase/server';
 import { HRList } from '@/components/questions/hr/HRList';
 
 export const metadata = {title: 'HR & Behavioral — CrackIt'}
