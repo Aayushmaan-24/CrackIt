@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Zap, CheckCircle2, Brain, BarChart3, BookOpen, ArrowRight, Loader2 } from 'lucide-react'
+import { Zap, CheckCircle2, Users, BarChart3, BookOpen, ArrowRight, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -26,9 +26,9 @@ const features = [
     description: 'Check off questions as you solve them. Your progress syncs across devices. Never lose track again.',
   },
   {
-    icon: Brain,
-    title: 'AI Study Partner',
-    description: 'Stuck? Get hints, full explanations, or let the AI quiz you on your approach. Context-aware for every question.',
+    icon: Users,
+    title: 'Community Solutions',
+    description: 'Learn from community-curated solutions and approaches. Understand multiple ways to solve each problem.',
   },
   {
     icon: BarChart3,
@@ -60,9 +60,9 @@ export default function LandingPage() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-tight">
-            Crack every round.
+            Practise systematically
             <br />
-            <span className="text-yellow-400">Land every offer.</span>
+            <span className="text-yellow-400">Ace your interviews.</span>
           </h1>
 
           <p className="text-lg text-white/50 max-w-xl leading-relaxed">
