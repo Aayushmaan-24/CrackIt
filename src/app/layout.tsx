@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.css";
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { PostHogProvider } from '@/components/providers/PostHogProvider'
 
-const inter = Inter({ subsets : ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const calSans = localFont({
+  src: '../fonts/CalSans-SemiBold.woff2',
+  variable: '--font-cal',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "CrackIt — Crack every round. Land every offer.",
@@ -22,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased dark`}
     >
-      <body className={`${inter.className} bg-[#0a0a0a] text-white min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${calSans.variable} font-sans bg-[#0a0a0a] text-white min-h-screen flex flex-col`}>
         <PostHogProvider>
           <Navbar />
           <main className="flex-1">
