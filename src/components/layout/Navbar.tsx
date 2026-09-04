@@ -1,8 +1,9 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { SignInButton } from '@/components/auth/SignInButton'
-import { Zap, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { clsx } from 'clsx'
 import { useState } from 'react'
 
@@ -27,7 +28,7 @@ export function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <Zap className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            <Image src="/favicon.svg" alt="CrackIt Logo" width={24} height={24} className="w-6 h-6" />
             <span>CrackIt</span>
           </Link>
 
