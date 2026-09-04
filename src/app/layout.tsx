@@ -21,8 +21,13 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "CrackIt — Crack every round. Land every offer.",
+  title: "CrackIt — Practise Systemically, Ace your interviews.",
   description:"The ultimate placement prep guide for college students. 200+ DSA questions, system design, core CS — all in one place.",
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  }
 };
 
 export default function RootLayout({
