@@ -1,9 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { SEList } from '@/components/questions/se/SEList'
+import { QuestionPageSkeleton } from '@/components/questions/QuestionListSkeleton'
+import { Suspense } from 'react'
 
 export const metadata = { title: 'Software Engineering — CrackIt' }
 
-export default async function SEPage() {
+async function SEContent() {
   const supabase = await createClient()
   const { data } = await supabase
     .from('se_topics')
@@ -20,5 +22,13 @@ export default async function SEPage() {
       </div>
       <SEList topics={data ?? []} />
     </div>
+  )
+}
+
+export default async function SEPage() {
+  return (
+    <Suspense fallback={<QuestionPageSkeleton />}>
+      <SEContent />
+    </Suspense>
   )
 }

@@ -1,9 +1,11 @@
 import { createClient } from '@/lib/supabase/server';
 import { HRList } from '@/components/questions/hr/HRList';
+import { QuestionPageSkeleton } from '@/components/questions/QuestionListSkeleton';
+import { Suspense } from 'react';
 
 export const metadata = {title: 'HR & Behavioral — CrackIt'}
 
-export default async function HRPage() {
+async function HRContent() {
     const supabase = await createClient();
     const { data } = await supabase
     .from("hr_questions")
@@ -20,5 +22,13 @@ export default async function HRPage() {
             </div>
             <HRList questions = {data ?? []} />
         </div>
+    )
+}
+
+export default async function HRPage() {
+    return (
+        <Suspense fallback={<QuestionPageSkeleton />}>
+            <HRContent />
+        </Suspense>
     )
 }
