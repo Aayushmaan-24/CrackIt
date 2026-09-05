@@ -1,9 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { AptitudeList } from '@/components/questions/aptitude/AptitudeList'
+import { QuestionPageSkeleton } from '@/components/questions/QuestionListSkeleton'
+import { Suspense } from 'react'
 
 export const metadata = { title: 'Aptitude — CrackIt' }
 
-export default async function AptitudePage() {
+async function AptitudeContent() {
   const supabase = await createClient()
 
   const [{ data: questions }, { data: topics }] = await Promise.all([
@@ -21,5 +23,13 @@ export default async function AptitudePage() {
       </div>
       <AptitudeList questions={questions ?? []} topics={topics ?? []} />
     </div>
+  )
+}
+
+export default async function AptitudePage() {
+  return (
+    <Suspense fallback={<QuestionPageSkeleton />}>
+      <AptitudeContent />
+    </Suspense>
   )
 }

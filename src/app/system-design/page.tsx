@@ -1,11 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { SystemDesignTabs } from '@/components/questions/systemdesign/Tabs';
+import { QuestionPageSkeleton } from "@/components/questions/QuestionListSkeleton";
+import { Suspense } from "react";
 
 export const metadata = {
     title: 'System Design — CrackIt'
 }
 
-export default async function SystemDesignPage() {
+async function SystemDesignContent() {
     const supabase = await createClient()
 
     const [
@@ -28,12 +30,20 @@ export default async function SystemDesignPage() {
                     HLD concepts · LLD patterns · Design problems — all in one place
                 </p>
             </div>
-            <SystemDesignTabs 
+            <SystemDesignTabs
                 hldConcepts={hldConcepts ?? []}
                 lldConcepts={lldConcepts ?? []}
                 hldProblems={hldProblems ?? []}
                 lldProblems={lldProblems ?? []}
             />
         </div>
+    )
+}
+
+export default async function SystemDesignPage() {
+    return (
+        <Suspense fallback={<QuestionPageSkeleton />}>
+            <SystemDesignContent />
+        </Suspense>
     )
 }

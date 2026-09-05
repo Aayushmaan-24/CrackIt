@@ -24,12 +24,19 @@ export function Navbar() {
   return (
     <nav className="border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-14 min-h-[3.5rem]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <Image src="/favicon.svg" alt="CrackIt Logo" width={24} height={24} className="w-6 h-6" />
-            <span>CrackIt</span>
+          <Link href="/" className="flex items-center gap-2 font-bold text-lg hover:opacity-80 transition-opacity py-2 px-1">
+            <Image
+              src="/favicon.svg"
+              alt="CrackIt Logo"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+              priority
+            />
+            <span className="hidden sm:inline">CrackIt</span>
           </Link>
 
           {/* Desktop nav */}
@@ -39,7 +46,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={clsx(
-                  'px-3 py-1.5 rounded-md text-sm transition-colors',
+                  'px-3 py-2 rounded-md text-sm transition-colors min-h-[2.5rem] flex items-center',
                   pathname === link.href
                     ? 'bg-white/10 text-white font-medium'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
@@ -56,7 +63,9 @@ export function Navbar() {
             {/* Hamburger — mobile only */}
             <button
               onClick={() => setMenuOpen(prev => !prev)}
-              className="md:hidden p-1.5 rounded-md text-white/60 hover:text-white hover:bg-white/5 transition-colors"
+              className="md:hidden p-2 rounded-md text-white/60 hover:text-white hover:bg-white/5 transition-colors min-h-[2.5rem] min-w-[2.5rem] flex items-center justify-center active:bg-white/10"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -67,7 +76,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#0a0a0a]">
+        <div className="md:hidden border-t border-white/10 bg-[#0a0a0a] animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col px-4 py-3 gap-1">
             {navLinks.map(link => (
               <Link
@@ -75,7 +84,7 @@ export function Navbar() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className={clsx(
-                  'px-3 py-2.5 rounded-md text-sm transition-colors',
+                  'px-3 py-3 rounded-md text-sm transition-colors min-h-[2.75rem] flex items-center active:bg-white/10',
                   pathname === link.href
                     ? 'bg-white/10 text-white font-medium'
                     : 'text-white/60 hover:text-white hover:bg-white/5'

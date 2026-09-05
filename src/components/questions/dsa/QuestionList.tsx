@@ -60,18 +60,18 @@ export function QuestionList({ questions, initialFilter }: QuestionListProps) {
     <div className="flex flex-col gap-4">
 
       {showAuthPrompt && (
-        <div className="flex items-center justify-between bg-yellow-400/10 border border-yellow-400/20 rounded-lg px-4 py-3">
+        <div className="flex items-center justify-between bg-yellow-400/10 border border-yellow-400/20 rounded-lg px-4 py-3 min-h-[3.5rem] animate-in fade-in duration-200">
           <p className="text-sm text-yellow-300">Sign in to track your progress across devices</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={handleSignIn}
-              className="text-sm font-medium text-yellow-400 hover:text-yellow-300 transition-colors"
+              className="text-sm font-medium text-yellow-400 hover:text-yellow-300 transition-colors whitespace-nowrap"
             >
               Sign in with Google →
             </button>
             <button
               onClick={() => setShowAuthPrompt(false)}
-              className="text-xs text-white/30 hover:text-white/50"
+              className="text-xs text-white/30 hover:text-white/50 transition-colors"
             >
               Dismiss
             </button>
@@ -80,14 +80,14 @@ export function QuestionList({ questions, initialFilter }: QuestionListProps) {
       )}
 
       {bookmarkMode && (
-        <div className="flex items-center justify-between bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-3">
+        <div className="flex items-center justify-between bg-blue-400/10 border border-blue-400/20 rounded-lg px-4 py-3 min-h-[3.5rem] animate-in fade-in duration-200">
           <p className="text-sm text-blue-300">
             Showing bookmarked questions
             {filtered.length === 0 && isLoggedIn && ' — you have no bookmarks yet'}
           </p>
           <button
             onClick={() => setBookmarkMode(false)}
-            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+            className="text-xs text-blue-400 hover:text-blue-300 transition-colors whitespace-nowrap shrink-0"
           >
             Show all →
           </button>
@@ -103,14 +103,14 @@ export function QuestionList({ questions, initialFilter }: QuestionListProps) {
 
       {/* Progress bar — scoped to DSA questions only */}
       {isLoggedIn && !bookmarkMode && (
-        <div className="flex items-center gap-3 px-1">
+        <div className="flex items-center gap-3 px-1 h-8">
           <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-green-500 rounded-full transition-all duration-500"
               style={{ width: `${(solvedCount / questions.length) * 100}%` }}
             />
           </div>
-          <span className="text-xs text-white/40 shrink-0">
+          <span className="text-xs text-white/40 shrink-0 whitespace-nowrap">
             {solvedCount} / {questions.length} solved
           </span>
         </div>

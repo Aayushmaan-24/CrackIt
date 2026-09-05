@@ -60,8 +60,8 @@ export function QuestionCard ({
 
     return (
         <div className={clsx(
-            'group flex items-center gap-4 px-4 py-3 rounded-lg border transition-all',
-            completed 
+            'group flex items-center gap-4 px-4 py-3 rounded-lg border transition-all min-h-[2.75rem]',
+            completed
             ? 'bg-white/[0.02] border-white/5'
             : 'bg-white/[0.02] border-white/10 hover:bg-white/[0.04] hover:border-white/20'
         )}>
@@ -70,11 +70,12 @@ export function QuestionCard ({
             <button
                 onClick={handleCheck}
                 className={clsx(
-                    'w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all',
+                    'w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all flex-shrink-0',
                     completed
                     ? 'bg-green-500 border-green-500'
                     : 'border-white/20 hover:border-white/50'
                 )}
+                aria-label={completed ? "Mark as incomplete" : "Mark as complete"}
             >
                 {completed && (
                     <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -84,36 +85,36 @@ export function QuestionCard ({
             </button>
 
             {/* Title */}
-            
+
             <a href={question.leetcode_url}
             target="_blank"
             rel="noopener noreferrer"
             className={clsx(
-                'flex-1 text-sm font-medium flex items-center gap-2 group/link',
+                'flex-1 text-sm font-medium flex items-center gap-2 group/link min-w-0',
                 completed ? 'text-white/40 line-through' : 'text-white hover:text-yellow-400'
             )}
             >
-                {question.title}
-                <ExternalLink className="w-3 h-3 opacity-0 group-hover/link:opacity-100 transition-opacity shrink-0" />
+                <span className="truncate">{question.title}</span>
+                <ExternalLink className="w-3 h-3 opacity-0 group-hover/link:opacity-100 transition-opacity shrink-0 flex-shrink-0" />
             </a>
 
             {/* Tags — hidden on mobile, visible md+ */}
-            <div className="hidden md:flex items-center gap-2 shrink-0">
+            <div className="hidden md:flex items-center gap-2 shrink-0 flex-shrink-0">
                  {question.topics.slice(0, 2).map(topic => (
-                    <span key={topic} className="text-xs text-white/30 bg-white/5 px-2 py-0.5 rounded capitalize">
+                    <span key={topic} className="text-xs text-white/30 bg-white/5 px-2 py-0.5 rounded capitalize whitespace-nowrap">
                         {topic.replace('-', ' ')}
                     </span>
                 ))}
             </div>
 
             { /* Company Count */ }
-            <span className="hidden sm:block text-xs text-white/25 shrink-0">
+            <span className="hidden sm:block text-xs text-white/25 shrink-0 flex-shrink-0 w-10 text-right">
                 {question.companies.length} co.
             </span>
 
             {/* Difficulty */}
             <span className={clsx(
-                'text-xs font-medium px-2 py-0.5 rounded capitalize shrink-0',
+                'text-xs font-medium px-2 py-0.5 rounded capitalize shrink-0 flex-shrink-0 whitespace-nowrap',
                 DIFFICULTY_BADGE[question.difficulty]
             )}>
                 {question.difficulty}
@@ -123,9 +124,10 @@ export function QuestionCard ({
             <button
                 onClick={handleBookmark}
                 className={clsx(
-                    'shrink-0 transition-colors',
+                    'shrink-0 transition-colors flex-shrink-0 w-5 h-5 flex items-center justify-center',
                     bookmarked ? 'text-yellow-400' : 'text-white/20 hover:text-white/50 opacity-0 group-hover:opacity-100'
                 )}
+                aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
             >
                 {bookmarked
                 ? <BookmarkCheck className="w-4 h-4" />

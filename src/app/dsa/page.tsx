@@ -1,16 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { QuestionList } from '@/components/questions/dsa/QuestionList'
+import { QuestionPageSkeleton } from '@/components/questions/QuestionListSkeleton'
 import type { Question } from '@/types'
+import { Suspense } from 'react'
 
 export const metadata = { title: 'DSA Questions — CrackIt' }
 
-export default async function DSAPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ filter?: string }>
-}) {
+async function QuestionsContent({ filter }: { filter?: string }) {
   const supabase = await createClient()
-  const { filter } = await searchParams
 
   const { data } = await supabase
     .from('questions')
@@ -34,5 +31,19 @@ export default async function DSAPage({
 
       <QuestionList questions={questions} initialFilter={filter} />
     </div>
+  )
+}
+
+export default async function DSAPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string }>
+}) {
+  const { filter } = await searchParams
+
+  return (
+    <Suspense fallback={<QuestionPageSkeleton />}>
+      <QuestionsContent filter={filter} />
+    </Suspense>
   )
 }
