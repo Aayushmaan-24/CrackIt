@@ -5,7 +5,7 @@ import { Zap, CheckCircle2, Users, BarChart3, BookOpen, ArrowRight, Loader2 } fr
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ScrollReveal } from '@/components/ScrollReveal'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 const stats = [
   { value: '200+', label: 'DSA Questions' },
