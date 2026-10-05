@@ -39,12 +39,12 @@ export function QuestionCard ({
 }: QuestionCardProps) {
 
     const [noteOpen, setNoteOpen] = useState(false)
-    const [localNote, setLocalNote] = useState(note)
+    const [localNote, setLocalNote] = useState(note ?? '')
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     // Sync if note changes from outside (initial load)
     useEffect(() => {
-        setLocalNote(note)
+        setLocalNote(note ?? '')
     }, [note])
 
     const handleNoteChange = (value: string) => {
