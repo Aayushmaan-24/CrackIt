@@ -1,7 +1,8 @@
 'use client'
 
 import { clsx } from "clsx"
-import { ExternalLink, Bookmark, BookmarkCheck } from "lucide-react"
+import { ExternalLink, Bookmark, BookmarkCheck, StickyNote } from "lucide-react"
+import { useState, useEffect, useRef } from 'react'
 import type { Question, Difficulty } from '@/types'
 import { posthog } from "@/lib/posthog"
 
@@ -11,12 +12,16 @@ const DIFFICULTY_BADGE: Record<Difficulty, string> = {
   hard: 'text-red-400 bg-red-400/10',
 }
 
+const MAX_NOTE_LENGTH = 500
+
 interface QuestionCardProps {
     question: Question
     completed: boolean
     bookmarked: boolean
+    note: string
     onToggleComplete: () => void
     onToggleBookmark: () => void
+    onSaveNote : (note: string) => void
     isLoggedIn: boolean
     onAuthRequired: () => void
 }
@@ -25,11 +30,33 @@ export function QuestionCard ({
     question,
     completed,
     bookmarked,
+    note,
     onToggleComplete,
     onToggleBookmark,
+    onSaveNote,
     isLoggedIn,
     onAuthRequired,
 }: QuestionCardProps) {
+
+    const [noteOpen, setNoteOpen] = useState(false)
+    const [localNote, setLocalNote] = useState(note ?? '')
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    // Sync if note changes from outside (initial load)
+    useEffect(() => {
+        setLocalNote(note ?? '')
+    }, [note])
+
+    const handleNoteChange = (value: string) => {
+        if(value.length > MAX_NOTE_LENGTH) return
+        setLocalNote(value)
+
+        // Debounce — save 1 second after user stops typing
+        if (debounceRef.current) clearTimeout(debounceRef.current)
+        debounceRef.current = setTimeout(() => {
+            onSaveNote(value)
+        }, 1000)
+    }
 
     const handleCheck = () => {
         if(!isLoggedIn) {
@@ -58,13 +85,26 @@ export function QuestionCard ({
         })
     }
 
+    const handleNoteToggle = () => {
+        if(!isLoggedIn) {
+            onAuthRequired();
+            return
+        }
+        setNoteOpen(prev => !prev)
+    }
+
+    const hasNote = localNote.trim().length > 0
+
     return (
-        <div className={clsx(
-            'group flex items-center gap-4 px-4 py-3 rounded-lg border transition-all min-h-[2.75rem]',
+
+        <div className={clsx('rounded-lg border transition-all',
             completed
             ? 'bg-white/[0.02] border-white/5'
             : 'bg-white/[0.02] border-white/10 hover:bg-white/[0.04] hover:border-white/20'
         )}>
+
+        <div/>
+        <div className='group flex items-center gap-4 px-4 py-3 rounded-lg border transition-all min-h-[2.75rem]'>
 
             {/* CheckBox */}
             <button
@@ -120,6 +160,18 @@ export function QuestionCard ({
                 {question.difficulty}
             </span>
 
+            {/* Notes toggle */}
+            <button
+                onClick={handleNoteToggle}
+                className={clsx(
+                    'shrink-0 flex-shrink-0 w-5 h-5 flex items-center justify-center transition-colors',
+                    hasNote ? 'text-yellow-400' : noteOpen ? 'text-white/60' : 'text-white/20 hover:text-white/50 opacity-0 group-hover:opacity-100'
+                )}
+                aria-label={hasNote ? "View note" : "Add note"}
+            >
+                <StickyNote className="w-4 h-4" />
+            </button>
+
             {/* Bookmark */}
             <button
                 onClick={handleBookmark}
@@ -134,7 +186,31 @@ export function QuestionCard ({
                 : <Bookmark className="w-4 h-4" />
                 }
             </button>
+        </div>
 
+        {/* Notes panel — expands below the row */}
+        {noteOpen && (
+            <div className="px-4 pb-3 border-t border-white/5">
+                <div className="pt-2 flex flex-col gap-1.5">
+                    <textarea
+                        value={localNote}
+                        onChange = {e => handleNoteChange(e.target.value)}
+                        placeholder="Write your approach, key insight, or anything to remember..."
+                        rows={3}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/25 resize-none transition-colors"
+                    />
+                    <div className="flex items-center justify-between px-0.5">
+                        <span className="text-xs text-white/20">Auto saves as you type</span>
+                        <span className={clsx(
+                            'text-xs',
+                            localNote.length > 450? 'text-yellow-400' : 'text-white/20'
+                        )}>
+                            {localNote.length}/{MAX_NOTE_LENGTH}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        )}
         </div>
     )
 }

@@ -12,7 +12,7 @@ interface QuestionListProps {
 }
 
 export function QuestionList({ questions, initialFilter }: QuestionListProps) {
-  const { progress, bookmarks, toggleComplete, toggleBookmark, isLoggedIn } = useProgress()
+  const { progress, bookmarks, toggleComplete, toggleBookmark, isLoggedIn, notes, saveNote } = useProgress()
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [filters, setFilters] = useState<FilterState>({
     search: '', topics: [], companies: [], difficulties: []
@@ -132,8 +132,10 @@ export function QuestionList({ questions, initialFilter }: QuestionListProps) {
               question={q}
               completed={progress[q.id] ?? false}
               bookmarked={bookmarks[q.id] ?? false}
+              note={notes[q.id] ?? ''}
               onToggleComplete={() => toggleComplete(q.id)}
               onToggleBookmark={() => toggleBookmark(q.id)}
+              onSaveNote={(note) => saveNote(q.id, note)}
               isLoggedIn={isLoggedIn}
               onAuthRequired={() => setShowAuthPrompt(true)}
             />
