@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CrackIt — Practice Systematically, Ace Your Interviews
 
-## Getting Started
+The ultimate placement prep guide for college students. 200+ company-tagged DSA questions, system design, core CS, HR prep, SQL, and more — all tracked in one place, completely free.
 
-First, run the development server:
+## What is CrackIt?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+CrackIt is a comprehensive interview preparation platform built specifically for Indian college students aiming for placements at top companies. No fluff, no paywalls — just the prep material that actually matters.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Company-Tagged Questions**
+- 200+ DSA questions tagged by Google, Amazon, Microsoft, Meta, Flipkart, Swiggy, Zomato, and more
+- Filter by company, topic, or difficulty level
+- Direct links to LeetCode for each problem
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Track Your Progress**
+- Mark questions as completed and bookmarked
+- Add personal notes to questions
+- Your progress syncs across all your devices
 
-## Learn More
+**Comprehensive Coverage**
+- **DSA** — Data structures, algorithms, and coding interview prep
+- **System Design** — Large-scale system architecture and design patterns
+- **Core CS** — Fundamentals of computer science
+- **HR Prep** — Common HR interview questions and strategies
+- **SQL** — Database queries and optimization
+- **Aptitude** — Quantitative reasoning and problem-solving
+- **Software Engineering** — General software engineering concepts
 
-To learn more about Next.js, take a look at the following resources:
+**Readiness Score**
+- See exactly how prepared you are for each company
+- Identify weak areas before your interview
+- Benchmark your progress
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**100% Free Forever**
+- No hidden fees
+- No premium tiers
+- No paywalls
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How It Works
 
-## Deploy on Vercel
+1. **Sign In** — Create your account with Google to sync progress
+2. **Choose Your Path** — Pick DSA, System Design, Core CS, or any other category
+3. **Practice** — Solve questions, add notes, bookmark for later
+4. **Track Progress** — Monitor your readiness for each company
+5. **Prepare Smarter** — Focus on weak areas and interview patterns
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Who is CrackIt for?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- College students preparing for placements
+- Anyone interviewing at Indian tech companies
+- Self-taught developers building interview skills
+- Career switchers breaking into tech
+
+## Join Thousands of Students
+
+CrackIt is already helping thousands of students prepare smarter and land interviews at top companies.
+
+**Start Preparing** → [Visit CrackIt](https://crack-it-zeta.vercel.app)
