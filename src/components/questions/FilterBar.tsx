@@ -7,14 +7,14 @@ import type { Topic, Company, Difficulty } from "@/types"
 const TOPICS : Topic[] = [
   'arrays', 'strings', 'two-pointers', 'sliding-window',
   'binary-search', 'stacks', 'queues', 'linked-lists',
-  'trees', 'heaps', 'graphs', 'backtracking', 'greedy', 'dp', 'math'
+  'trees', 'heaps', 'graphs', 'backtracking', 'greedy', 'dp', 'math','prefix-sum', 'hash-map', 'fast-slow-pointers', 'union-find', 'monotonic-stack', 'intervals'
 ]
 
 const COMPANIES: Company[] = [
   'google', 'amazon', 'microsoft', 'meta',
   'flipkart', 'swiggy', 'zomato', 'atlassian', 'salesforce', 'adobe',
   'goldman_sachs', 'jpmorgan', 'morgan_stanley', 'bny_mellon',
-  'deutsche_bank', 'wells_fargo'
+  'deutsche_bank', 'wells_fargo','uber', 'dropbox', 'linkedin', 'oracle', 'paypal'
 ]
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
@@ -31,7 +31,8 @@ const COMPANY_LABELS: Record<string, string> = {
     zomato: 'Zomato', atlassian: 'Atlassian', salesforce: 'Salesforce',
     adobe: 'Adobe', goldman_sachs: 'Goldman Sachs', jpmorgan: 'JP Morgan',
     morgan_stanley: 'Morgan Stanley', bny_mellon: 'BNY Mellon',
-    deutsche_bank: 'Deutsche Bank', wells_fargo: 'Wells Fargo',
+    deutsche_bank: 'Deutsche Bank', wells_fargo: 'Wells Fargo', uber: 'Uber', dropbox: 'Dropbox', linkedin: 'LinkedIn',
+    oracle: 'Oracle', paypal: 'PayPal',
   }
 
 export interface FilterState {
