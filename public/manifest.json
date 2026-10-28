@@ -1,0 +1,16 @@
+{
+    "name": "CrackIt",
+    "short_name": "CrackIt",
+    "description": "Free placement prep platform for college students",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#facc15",
+    "icons": [
+      {
+        "src": "/favicon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }
+    ]
+  }
