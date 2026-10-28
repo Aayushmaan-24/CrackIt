@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     default: 'CrackIt — Crack every round. Land every offer.',
     template: '%s — CrackIt',
   },
+  verification: {
+    google: "W9OmOyzuNr3yxwUcDAPRcwmE4l5VrEMw_KTGBO-o5zk"
+  },
   description: 'Free placement prep platform for college students. 225+ company-tagged DSA questions, System Design (HLD/LLD), Core CS, SQL, Aptitude, HR behavioral questions. Google, Amazon, Microsoft, Goldman Sachs, BNY Mellon and more.',
   keywords: [
     'placement preparation', 'DSA questions', 'leetcode company tagged',
