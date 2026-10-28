@@ -21,14 +21,61 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "CrackIt — Practise Systemically, Ace your interviews.",
-  description:"The ultimate placement prep guide for college students. 200+ DSA questions, system design, core CS — all in one place.",
+  title: {
+    default: 'CrackIt — Crack every round. Land every offer.',
+    template: '%s — CrackIt',
+  },
+  description: 'Free placement prep platform for college students. 225+ company-tagged DSA questions, System Design (HLD/LLD), Core CS, SQL, Aptitude, HR behavioral questions. Google, Amazon, Microsoft, Goldman Sachs, BNY Mellon and more.',
+  keywords: [
+    'placement preparation', 'DSA questions', 'leetcode company tagged',
+    'system design interview', 'campus placement India', 'Goldman Sachs interview',
+    'BNY Mellon interview', 'JP Morgan interview', 'Amazon SDE internship',
+    'Google interview prep', 'aptitude questions placement', 'HR behavioral questions',
+    'SQL interview questions', 'software engineering interview', 'free placement prep',
+    'CrackIt', 'crackit placement'
+  ],
+  authors: [{ name: 'Aayushmaan Chakraborty', url: 'https://github.com/Aayushmaan-24' }],
+  creator: 'Aayushmaan Chakraborty',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://crack-it-zeta.vercel.app',
+    siteName: 'CrackIt',
+    title: 'CrackIt — Crack every round. Land every offer.',
+    description: 'Free placement prep platform. 225+ company-tagged DSA questions, System Design, Core CS, Aptitude, HR. No paywall.',
+    images: [
+      {
+        url: 'https://crack-it-zeta.vercel.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'CrackIt — Placement Prep Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CrackIt — Crack every round. Land every offer.',
+    description: 'Free placement prep platform. 225+ company-tagged DSA questions, System Design, Core CS, Aptitude, HR. No paywall.',
+    images: ['https://crack-it-zeta.vercel.app/og-image.png'],
+    creator: '@aayushmaanc',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-  }
-};
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
+}
 
 export default function RootLayout({
   children,
